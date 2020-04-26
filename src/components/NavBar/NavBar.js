@@ -21,7 +21,7 @@ const NavBar = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            News
+            SPIŻARNIA
           </Typography>
           <Button color="secondary" variant="contained">
             Lista zakupów

@@ -98,8 +98,8 @@ class AddItemModal extends Component {
             <Form />
           </DialogContent>
           <DialogActions>
-            <Button autoFocus onClick={this.handleModalClose} color="primary">
-              Zapisz zmiany
+            <Button autoFocus onClick={this.handleModalClose} color="primary" variant="contained">
+              Dodaj
             </Button>
           </DialogActions>
         </Dialog>
