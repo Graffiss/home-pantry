@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button, Badge } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,9 +9,7 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
-    flexGrow: 1,
-  },
+  title: { flex: 1 },
 }));
 
 const NavBar = () => {
@@ -23,9 +21,11 @@ const NavBar = () => {
           <Typography variant="h6" className={classes.title}>
             SPIŻARNIA
           </Typography>
-          <Button color="secondary" variant="contained">
-            Lista zakupów
-          </Button>
+          <Badge badgeContent={2} color="error">
+            <Button color="secondary" variant="contained">
+              Lista zakupów
+            </Button>
+          </Badge>
         </Toolbar>
       </AppBar>
     </div>

@@ -1,11 +1,12 @@
 import React from 'react';
-import NavBar from './components/NavBar/NavBar';
-import AddItemModal from './components/AddItemModal/AddItemModal';
+import MainTemplate from './templates/MainTemplate';
+import ProductView from './views/ProductView';
 
 const App = () => (
   <div>
-    <NavBar />
-    <AddItemModal />
+    <MainTemplate>
+      <ProductView />
+    </MainTemplate>
   </div>
 );
 

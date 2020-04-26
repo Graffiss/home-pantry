@@ -16,8 +16,10 @@ const StyledForm = styled.form`
 class Form extends Component {
   state = {
     item: {
+      id: 0,
       name: '',
-      count: 0,
+      amount: 0,
+      minAmount: 0,
       category: '',
     },
   };
@@ -34,7 +36,7 @@ class Form extends Component {
 
   render() {
     const {
-      item: { name, count, category },
+      item: { name, amount, minAmount, category },
     } = this.state;
 
     return (
@@ -52,8 +54,21 @@ class Form extends Component {
           id="outlined-number"
           label="Ilość"
           type="number"
-          name="count"
-          value={count}
+          name="amount"
+          value={amount}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          margin="normal"
+          onChange={this.handleChange}
+        />
+        <TextField
+          id="outlined-number"
+          label="Minimalna ilość"
+          type="number"
+          name="minAmount"
+          value={minAmount}
           InputLabelProps={{
             shrink: true,
           }}
@@ -73,6 +88,7 @@ class Form extends Component {
           >
             <MenuItem value="Napoje">Napoje</MenuItem>
             <MenuItem value="Warzywa">Warzywa</MenuItem>
+            <MenuItem value="Owoce">Owoce</MenuItem>
             <MenuItem value="Suche">Suche</MenuItem>
           </Select>
         </FormControl>
