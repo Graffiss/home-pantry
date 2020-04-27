@@ -2,34 +2,43 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import Chip from '@material-ui/core/Chip';
 import IconButton from '@material-ui/core/IconButton';
-import FolderIcon from '@material-ui/icons/Folder';
+import Chip from '@material-ui/core/Chip';
+import SvgIcon from '@material-ui/core/SvgIcon';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { removeItem as removeItemAction } from '../../actions';
 
 const StyledListItem = styled(ListItem)`
-  min-width: 20vw;
+  min-width: 40vw;
 `;
 
-const ProductItem = ({ name, category }) => (
+const StyledSvgIcon = styled(SvgIcon)`
+  max-width: 24px;
+  max-height: 24px;
+`;
+
+const ProductItem = ({ id, name, category, amount, icon, removeItem }) => (
   <StyledListItem>
     <ListItemAvatar>
-      <Avatar>
-        <FolderIcon />
-      </Avatar>
+      <StyledSvgIcon>{icon}</StyledSvgIcon>
     </ListItemAvatar>
     <ListItemText primary={name} />
+    {`Pozostało: ${amount}`}
     <Chip label={category} size="small" />
     <IconButton edge="end" aria-label="edit">
       <EditIcon />
     </IconButton>
-    <IconButton edge="end" aria-label="delete">
+    <IconButton edge="end" aria-label="delete" onClick={() => removeItem(id)}>
       <DeleteIcon />
     </IconButton>
   </StyledListItem>
 );
 
-export default ProductItem;
+const mapDispatchToProps = (dispatch) => ({
+  removeItem: (id) => dispatch(removeItemAction(id)),
+});
+
+export default connect(null, mapDispatchToProps)(ProductItem);

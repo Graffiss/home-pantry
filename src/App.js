@@ -1,13 +1,15 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 import MainTemplate from './templates/MainTemplate';
 import ProductView from './views/ProductView';
 
 const App = () => (
-  <div>
+  <Provider store={store}>
     <MainTemplate>
       <ProductView />
     </MainTemplate>
-  </div>
+  </Provider>
 );
 
 export default App;
