@@ -5,6 +5,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { addItem as addItemAction } from '../../actions';
 
 const StyledForm = styled.form`
   display: flex;
@@ -16,7 +19,6 @@ const StyledForm = styled.form`
 class Form extends Component {
   state = {
     item: {
-      id: 0,
       name: '',
       amount: 0,
       minAmount: 0,
@@ -38,6 +40,8 @@ class Form extends Component {
     const {
       item: { name, amount, minAmount, category },
     } = this.state;
+
+    const { addItem } = this.props;
 
     return (
       <StyledForm>
@@ -92,9 +96,16 @@ class Form extends Component {
             <MenuItem value="Suche">Suche</MenuItem>
           </Select>
         </FormControl>
+        <Button autoFocus onClick={(item) => addItem(item)} color="primary" variant="contained">
+          Dodaj
+        </Button>
       </StyledForm>
     );
   }
 }
 
-export default Form;
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (itemContent) => dispatch(addItemAction(itemContent)),
+});
+
+export default connect(null, mapDispatchToProps)(Form);
