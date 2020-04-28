@@ -7,6 +7,13 @@ export const removeItem = (id) => ({
   },
 });
 
+export const editItem = (id) => ({
+  type: 'EDIT_ITEM',
+  payload: {
+    id,
+  },
+});
+
 export const addItem = (itemContent) => ({
   type: 'ADD_ITEM',
   payload: {

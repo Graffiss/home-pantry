@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { addItem as addItemAction } from '../../actions';
+import { addItem as addItemAction, editItem as editItemAction } from '../../actions';
 
 const StyledForm = styled.form`
   display: flex;
@@ -36,15 +36,20 @@ class Form extends Component {
     });
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { addItem } = this.props;
+    const { item } = this.state;
+
+    addItem(item);
+  };
+
   render() {
     const {
       item: { name, amount, minAmount, category },
     } = this.state;
-
-    const { addItem } = this.props;
-
     return (
-      <StyledForm>
+      <StyledForm onSubmit={this.handleSubmit}>
         <TextField
           id="outlined-basic"
           value={name}
@@ -96,7 +101,7 @@ class Form extends Component {
             <MenuItem value="Suche">Suche</MenuItem>
           </Select>
         </FormControl>
-        <Button autoFocus onClick={(item) => addItem(item)} color="primary" variant="contained">
+        <Button type="submit" autoFocus color="primary" variant="contained">
           Dodaj
         </Button>
       </StyledForm>
