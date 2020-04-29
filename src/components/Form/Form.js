@@ -111,6 +111,7 @@ class Form extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   addItem: (itemContent) => dispatch(addItemAction(itemContent)),
+  editItem: (itemContent) => dispatch(editItemAction(itemContent)),
 });
 
 export default connect(null, mapDispatchToProps)(Form);

@@ -16,23 +16,29 @@ const ProductList = ({ items }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Grid item xs={12} md={6}>
-        <List dense={false}>
-          {items.map(({ id, name, amount, minAmount, category, icon }) => (
-            <ProductItem
-              key={id}
-              id={id}
-              name={name}
-              amount={amount}
-              minAmount={minAmount}
-              category={category}
-              icon={icon}
-            />
-          ))}
-        </List>
-      </Grid>
-    </div>
+    <>
+      {items.length === 0 ? (
+        'W spiżarni jest pusto :('
+      ) : (
+        <div className={classes.root}>
+          <Grid item xs={12} md={6}>
+            <List dense={false}>
+              {items.map(({ id, name, amount, minAmount, category, icon }) => (
+                <ProductItem
+                  key={id}
+                  id={id}
+                  name={name}
+                  amount={amount}
+                  minAmount={minAmount}
+                  category={category}
+                  icon={icon}
+                />
+              ))}
+            </List>
+          </Grid>
+        </div>
+      )}
+    </>
   );
 };
 

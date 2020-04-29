@@ -53,7 +53,7 @@ const DialogContent = withStyles((theme) => ({
 
 class AddItemModal extends Component {
   state = {
-    modalOpen: false,
+    modalOpen: true,
   };
 
   handleModalOpen = () => {

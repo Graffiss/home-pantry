@@ -144,7 +144,7 @@ const initialState = {
     },
   ],
 
-  item: {
+  itemStore: {
     id: 0,
     name: '',
     amount: 0,
@@ -171,8 +171,7 @@ const rootReducer = (state = initialState, action) => {
     case 'EDIT_ITEM':
       return {
         ...state,
-        item: [...state.items.filter((item) => item.id === action.payload.id)],
-        editMode: true,
+        item: [...state.items.filter((item) => item.id === action.payload.id)][0],
       };
     default:
       return state;

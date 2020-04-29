@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -9,7 +9,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import { green } from '@material-ui/core/colors';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { removeItem as removeItemAction, editItem as editItemAction } from '../../actions';
+import { removeItem as removeItemAction } from '../../actions';
+import AddItemModal from '../AddItemModal/AddItemModal';
 
 const StyledListItem = styled(ListItem)`
   min-width: 40vw;
@@ -20,26 +21,31 @@ const StyledSvgIcon = styled.img`
   max-height: 48px;
 `;
 
-const ProductItem = ({ id, name, category, amount, icon, removeItem, editItem }) => (
-  <StyledListItem>
-    <ListItemAvatar>
-      <StyledSvgIcon src={icon} alt={name} />
-    </ListItemAvatar>
-    <ListItemText primary={name} />
-    {`Pozostało: ${amount}`}
-    <Chip label={category} size="small" />
-    <IconButton edge="end" aria-label="edit" onClick={() => editItem(id)}>
-      <EditIcon style={{ color: green[500] }} />
-    </IconButton>
-    <IconButton edge="end" aria-label="delete" onClick={() => removeItem(id)}>
-      <DeleteIcon color="secondary" />
-    </IconButton>
-  </StyledListItem>
-);
+const ProductItem = ({ id, name, category, amount, icon, removeItem }) => {
+  const [editMode, setEditMode] = useState(false);
+  return (
+    <>
+      <StyledListItem>
+        <ListItemAvatar>
+          <StyledSvgIcon src={icon} alt={name} />
+        </ListItemAvatar>
+        <ListItemText primary={name} />
+        {`Pozostało: ${amount}`}
+        <Chip label={category} size="small" />
+        <IconButton edge="end" aria-label="edit">
+          <EditIcon style={{ color: green[500] }} onClick={() => setEditMode(true)} />
+        </IconButton>
+        <IconButton edge="end" aria-label="delete" onClick={() => removeItem(id)}>
+          <DeleteIcon color="secondary" />
+        </IconButton>
+      </StyledListItem>
+      {editMode && <AddItemModal />}
+    </>
+  );
+};
 
 const mapDispatchToProps = (dispatch) => ({
   removeItem: (id) => dispatch(removeItemAction(id)),
-  editItem: (id) => dispatch(editItemAction(id)),
 });
 
 export default connect(null, mapDispatchToProps)(ProductItem);
