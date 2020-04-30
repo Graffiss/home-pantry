@@ -19,10 +19,10 @@ const StyledForm = styled.form`
 class Form extends Component {
   state = {
     item: {
-      name: '',
-      amount: 0,
-      minAmount: 0,
-      category: '',
+      name: this.props.item.name,
+      amount: this.props.item.amount,
+      minAmount: this.props.item.minAmount,
+      category: this.props.item.category,
     },
   };
 
@@ -109,9 +109,11 @@ class Form extends Component {
   }
 }
 
+const mapStateToProps = ({ item }) => ({ item });
+
 const mapDispatchToProps = (dispatch) => ({
   addItem: (itemContent) => dispatch(addItemAction(itemContent)),
   editItem: (itemContent) => dispatch(editItemAction(itemContent)),
 });
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

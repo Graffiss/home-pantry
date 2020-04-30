@@ -10,8 +10,8 @@ export const removeItem = (id) => ({
 export const editItem = (id, itemContent) => ({
   type: 'EDIT_ITEM',
   payload: {
-    itemStore: {
-      id,
+    id,
+    item: {
       ...itemContent,
     },
   },

@@ -144,7 +144,7 @@ const initialState = {
     },
   ],
 
-  itemStore: {
+  item: {
     id: 0,
     name: '',
     amount: 0,

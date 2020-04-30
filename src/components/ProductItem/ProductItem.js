@@ -9,7 +9,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { green } from '@material-ui/core/colors';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { removeItem as removeItemAction } from '../../actions';
+import { removeItem as removeItemAction, editItem as editItemAction } from '../../actions';
 import AddItemModal from '../AddItemModal/AddItemModal';
 
 const StyledListItem = styled(ListItem)`
@@ -21,7 +21,7 @@ const StyledSvgIcon = styled.img`
   max-height: 48px;
 `;
 
-const ProductItem = ({ id, name, category, amount, icon, removeItem }) => {
+const ProductItem = ({ id, name, category, amount, icon, removeItem, editItem }) => {
   const [editMode, setEditMode] = useState(false);
   return (
     <>
@@ -33,7 +33,7 @@ const ProductItem = ({ id, name, category, amount, icon, removeItem }) => {
         {`Pozostało: ${amount}`}
         <Chip label={category} size="small" />
         <IconButton edge="end" aria-label="edit">
-          <EditIcon style={{ color: green[500] }} onClick={() => setEditMode(true)} />
+          <EditIcon style={{ color: green[500] }} onClick={() => editItem(id)} />
         </IconButton>
         <IconButton edge="end" aria-label="delete" onClick={() => removeItem(id)}>
           <DeleteIcon color="secondary" />
@@ -46,6 +46,7 @@ const ProductItem = ({ id, name, category, amount, icon, removeItem }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   removeItem: (id) => dispatch(removeItemAction(id)),
+  editItem: (id) => dispatch(editItemAction(id)),
 });
 
 export default connect(null, mapDispatchToProps)(ProductItem);
