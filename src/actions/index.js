@@ -12,6 +12,7 @@ export const editItem = (id, itemContent) => ({
   payload: {
     id,
     item: {
+      id,
       ...itemContent,
     },
   },
@@ -24,5 +25,12 @@ export const addItem = (itemContent) => ({
       id: uuidv4(),
       ...itemContent,
     },
+  },
+});
+
+export const toggleModal = (modalOpen) => ({
+  type: 'TOGGLE_MODAL',
+  payload: {
+    modalOpen,
   },
 });

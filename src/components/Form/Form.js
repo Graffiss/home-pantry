@@ -19,10 +19,10 @@ const StyledForm = styled.form`
 class Form extends Component {
   state = {
     item: {
-      name: this.props.item.name,
-      amount: this.props.item.amount,
-      minAmount: this.props.item.minAmount,
-      category: this.props.item.category,
+      name: '',
+      amount: 0,
+      minAmount: 0,
+      category: '',
     },
   };
 
@@ -47,7 +47,7 @@ class Form extends Component {
   render() {
     const {
       item: { name, amount, minAmount, category },
-    } = this.state;
+    } = this.props;
     return (
       <StyledForm onSubmit={this.handleSubmit}>
         <TextField

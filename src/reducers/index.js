@@ -173,6 +173,13 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         item: [...state.items.filter((item) => item.id === action.payload.id)][0],
       };
+
+    case 'TOGGLE_MODAL':
+      return {
+        ...state,
+        modalOpen: !state.modalOpen,
+      };
+
     default:
       return state;
   }
