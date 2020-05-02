@@ -34,3 +34,10 @@ export const toggleModal = (modalOpen) => ({
     modalOpen,
   },
 });
+
+export const toggleEdit = (editMode) => ({
+  type: 'TOGGLE_EDIT',
+  payload: {
+    editMode,
+  },
+});

@@ -53,7 +53,7 @@ const DialogContent = withStyles((theme) => ({
   },
 }))(MuiDialogContent);
 
-const AddItemModal = ({ toggleModal, modalOpen }) => (
+const AddItemModal = ({ toggleModal, modalOpen, editMode }) => (
   /* state = {
     modalOpen: true,
   };
@@ -82,7 +82,7 @@ const AddItemModal = ({ toggleModal, modalOpen }) => (
       open={modalOpen}
     >
       <DialogTitle id="customized-dialog-title" onClose={() => toggleModal(modalOpen)}>
-        Dodaj produkt
+        {editMode ? 'Edytuj produkt' : 'Dodaj produkt'}
       </DialogTitle>
       <DialogContent dividers>
         <Form />
@@ -91,7 +91,7 @@ const AddItemModal = ({ toggleModal, modalOpen }) => (
   </div>
 );
 
-const mapStateToProps = ({ modalOpen }) => ({ modalOpen });
+const mapStateToProps = ({ modalOpen, editMode }) => ({ modalOpen, editMode });
 
 const mapDispatchToProps = (dispatch) => ({
   toggleModal: (modalOpen) => dispatch(toggleModalAction(modalOpen)),

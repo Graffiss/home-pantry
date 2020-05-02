@@ -180,6 +180,12 @@ const rootReducer = (state = initialState, action) => {
         modalOpen: !state.modalOpen,
       };
 
+    case 'TOGGLE_EDIT':
+      return {
+        ...state,
+        editMode: !state.editMode,
+      };
+
     default:
       return state;
   }

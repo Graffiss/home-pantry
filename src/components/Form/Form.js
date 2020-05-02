@@ -46,6 +46,7 @@ class Form extends Component {
 
   render() {
     const {
+      editMode,
       item: { name, amount, minAmount, category },
     } = this.props;
     return (
@@ -101,15 +102,20 @@ class Form extends Component {
             <MenuItem value="Suche">Suche</MenuItem>
           </Select>
         </FormControl>
-        <Button type="submit" autoFocus color="primary" variant="contained">
-          Dodaj
+        <Button
+          type="submit"
+          autoFocus
+          color={editMode ? 'secondary' : 'primary'}
+          variant="contained"
+        >
+          {editMode ? 'Edytuj/Zapisz' : 'Dodaj'}
         </Button>
       </StyledForm>
     );
   }
 }
 
-const mapStateToProps = ({ item }) => ({ item });
+const mapStateToProps = ({ item, editMode }) => ({ item, editMode });
 
 const mapDispatchToProps = (dispatch) => ({
   addItem: (itemContent) => dispatch(addItemAction(itemContent)),
