@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { connect } from 'react-redux';
-import { toggleModal as toggleModalAction } from '../../actions';
+import { toggleModal as toggleModalAction, stopEdit as stopEditAction } from '../../actions';
 import Form from '../Form/Form';
 
 const StyledFab = styled(Fab)`
@@ -53,48 +53,39 @@ const DialogContent = withStyles((theme) => ({
   },
 }))(MuiDialogContent);
 
-const AddItemModal = ({ toggleModal, modalOpen, editMode }) => (
-  /* state = {
-    modalOpen: true,
+const AddItemModal = ({ toggleModal, stopEdit, modalOpen, editMode }) => {
+  const handleModalClose = () => {
+    toggleModal(modalOpen);
+    stopEdit();
   };
-
-  handleModalOpen = () => {
-    this.setState({
-      modalOpen: true,
-    });
-  };
-
-  handleModalClose = () => {
-    this.setState({
-      modalOpen: false,
-    });
-  };
-*/
-  <div>
-    <Tooltip title="Dodaj" aria-label="add">
-      <StyledFab color="primary" aria-label="add" onClick={() => toggleModal(modalOpen)}>
-        <AddIcon />
-      </StyledFab>
-    </Tooltip>
-    <Dialog
-      onClose={() => toggleModal(modalOpen)}
-      aria-labelledby="customized-dialog-title"
-      open={modalOpen}
-    >
-      <DialogTitle id="customized-dialog-title" onClose={() => toggleModal(modalOpen)}>
-        {editMode ? 'Edytuj produkt' : 'Dodaj produkt'}
-      </DialogTitle>
-      <DialogContent dividers>
-        <Form />
-      </DialogContent>
-    </Dialog>
-  </div>
-);
+  return (
+    <div>
+      <Tooltip title="Dodaj" aria-label="add">
+        <StyledFab color="primary" aria-label="add" onClick={() => handleModalClose()}>
+          <AddIcon />
+        </StyledFab>
+      </Tooltip>
+      <Dialog
+        onClose={() => handleModalClose()}
+        aria-labelledby="customized-dialog-title"
+        open={modalOpen}
+      >
+        <DialogTitle id="customized-dialog-title" onClose={() => handleModalClose()}>
+          {editMode ? 'Edytuj produkt' : 'Dodaj produkt'}
+        </DialogTitle>
+        <DialogContent dividers>
+          <Form />
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+};
 
 const mapStateToProps = ({ modalOpen, editMode }) => ({ modalOpen, editMode });
 
 const mapDispatchToProps = (dispatch) => ({
   toggleModal: (modalOpen) => dispatch(toggleModalAction(modalOpen)),
+  stopEdit: () => dispatch(stopEditAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddItemModal);

@@ -171,7 +171,13 @@ const rootReducer = (state = initialState, action) => {
     case 'EDIT_ITEM':
       return {
         ...state,
+        items: [
+          ...state.items.map((item, id) =>
+            id === action.payload.id ? action.payload.itemContent : item,
+          ),
+        ],
         item: [...state.items.filter((item) => item.id === action.payload.id)][0],
+        editMode: true,
       };
 
     case 'TOGGLE_MODAL':
@@ -180,10 +186,10 @@ const rootReducer = (state = initialState, action) => {
         modalOpen: !state.modalOpen,
       };
 
-    case 'TOGGLE_EDIT':
+    case 'STOP_EDIT':
       return {
         ...state,
-        editMode: !state.editMode,
+        editMode: false,
       };
 
     default:

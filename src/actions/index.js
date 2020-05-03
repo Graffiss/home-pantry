@@ -7,14 +7,16 @@ export const removeItem = (id) => ({
   },
 });
 
-export const editItem = (id, itemContent) => ({
+export const editItem = (id, itemContent, editMode) => ({
   type: 'EDIT_ITEM',
   payload: {
     id,
+    itemContent,
     item: {
       id,
       ...itemContent,
     },
+    editMode,
   },
 });
 
@@ -35,9 +37,9 @@ export const toggleModal = (modalOpen) => ({
   },
 });
 
-export const toggleEdit = (editMode) => ({
-  type: 'TOGGLE_EDIT',
+export const stopEdit = () => ({
+  type: 'STOP_EDIT',
   payload: {
-    editMode,
+    editMode: false,
   },
 });

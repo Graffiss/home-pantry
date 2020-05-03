@@ -13,7 +13,6 @@ import {
   removeItem as removeItemAction,
   editItem as editItemAction,
   toggleModal as toggleModalAction,
-  toggleEdit as toggleEditAction,
 } from '../../actions';
 
 const StyledListItem = styled(ListItem)`
@@ -25,21 +24,10 @@ const StyledSvgIcon = styled.img`
   max-height: 48px;
 `;
 
-const ProductItem = ({
-  id,
-  name,
-  category,
-  amount,
-  icon,
-  removeItem,
-  editItem,
-  toggleModal,
-  toggleEdit,
-}) => {
+const ProductItem = ({ id, name, category, amount, icon, removeItem, editItem, toggleModal }) => {
   const handleEdit = () => {
     editItem(id);
     toggleModal();
-    toggleEdit();
   };
 
   return (
@@ -66,7 +54,6 @@ const mapDispatchToProps = (dispatch) => ({
   removeItem: (id) => dispatch(removeItemAction(id)),
   editItem: (id) => dispatch(editItemAction(id)),
   toggleModal: (modalOpen) => dispatch(toggleModalAction(modalOpen)),
-  toggleEdit: (editMode) => dispatch(toggleEditAction(editMode)),
 });
 
 export default connect(null, mapDispatchToProps)(ProductItem);

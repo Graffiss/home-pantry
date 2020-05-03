@@ -7,7 +7,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { addItem as addItemAction, editItem as editItemAction } from '../../actions';
+import {
+  addItem as addItemAction,
+  editItem as editItemAction,
+  toggleModal as toggleModalAction,
+} from '../../actions';
 
 const StyledForm = styled.form`
   display: flex;
@@ -26,6 +30,19 @@ class Form extends Component {
     },
   };
 
+  componentDidMount = () => {
+    if (this.props.editMode) {
+      this.setState({
+        item: {
+          name: this.props.item.name,
+          amount: this.props.item.amount,
+          minAmount: this.props.item.minAmount,
+          category: this.props.item.category,
+        },
+      });
+    }
+  };
+
   handleChange = (e) => {
     const { item } = this.state;
     this.setState({
@@ -38,17 +55,20 @@ class Form extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { addItem } = this.props;
+    const { addItem, toggleModal } = this.props;
     const { item } = this.state;
 
     addItem(item);
+    toggleModal();
   };
 
   render() {
     const {
-      editMode,
       item: { name, amount, minAmount, category },
-    } = this.props;
+    } = this.state;
+
+    const { editMode } = this.props;
+
     return (
       <StyledForm onSubmit={this.handleSubmit}>
         <TextField
@@ -120,6 +140,7 @@ const mapStateToProps = ({ item, editMode }) => ({ item, editMode });
 const mapDispatchToProps = (dispatch) => ({
   addItem: (itemContent) => dispatch(addItemAction(itemContent)),
   editItem: (itemContent) => dispatch(editItemAction(itemContent)),
+  toggleModal: (modalOpen) => dispatch(toggleModalAction(modalOpen)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
