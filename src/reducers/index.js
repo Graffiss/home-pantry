@@ -171,13 +171,18 @@ const rootReducer = (state = initialState, action) => {
     case 'EDIT_ITEM':
       return {
         ...state,
-        items: [
-          ...state.items.map((item, id) =>
-            id === action.payload.id ? action.payload.itemContent : item,
-          ),
-        ],
         item: [...state.items.filter((item) => item.id === action.payload.id)][0],
         editMode: true,
+      };
+
+    case 'UPDATE_ITEM':
+      return {
+        ...state,
+        items: [
+          ...state.items.map((item) =>
+            item.id === action.payload.id ? action.payload.item : item,
+          ),
+        ],
       };
 
     case 'TOGGLE_MODAL':

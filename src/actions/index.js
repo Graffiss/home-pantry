@@ -7,16 +7,21 @@ export const removeItem = (id) => ({
   },
 });
 
-export const editItem = (id, itemContent, editMode) => ({
+export const editItem = (id, editMode) => ({
   type: 'EDIT_ITEM',
   payload: {
     id,
-    itemContent,
+    editMode,
+  },
+});
+
+export const updateItem = (id, itemContent) => ({
+  type: 'UPDATE_ITEM',
+  payload: {
+    id,
     item: {
-      id,
       ...itemContent,
     },
-    editMode,
   },
 });
 

@@ -9,8 +9,9 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import {
   addItem as addItemAction,
-  editItem as editItemAction,
+  updateItem as updateItemAction,
   toggleModal as toggleModalAction,
+  editItem,
 } from '../../actions';
 
 const StyledForm = styled.form`
@@ -23,10 +24,12 @@ const StyledForm = styled.form`
 class Form extends Component {
   state = {
     item: {
+      id: 0,
       name: '',
       amount: 0,
       minAmount: 0,
       category: '',
+      icon: '',
     },
   };
 
@@ -34,10 +37,12 @@ class Form extends Component {
     if (this.props.editMode) {
       this.setState({
         item: {
+          id: this.props.item.id,
           name: this.props.item.name,
           amount: this.props.item.amount,
           minAmount: this.props.item.minAmount,
           category: this.props.item.category,
+          icon: this.props.item.icon,
         },
       });
     }
@@ -55,16 +60,20 @@ class Form extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { addItem, toggleModal } = this.props;
+    const { addItem, toggleModal, updateItem, editMode } = this.props;
     const { item } = this.state;
 
-    addItem(item);
+    if (editMode) {
+      updateItem(this.props.item.id, item);
+    } else {
+      addItem(item);
+    }
     toggleModal();
   };
 
   render() {
     const {
-      item: { name, amount, minAmount, category },
+      item: { name, amount, minAmount, category, icon },
     } = this.state;
 
     const { editMode } = this.props;
@@ -122,6 +131,15 @@ class Form extends Component {
             <MenuItem value="Suche">Suche</MenuItem>
           </Select>
         </FormControl>
+        <TextField
+          id="outlined-basic"
+          value={icon}
+          label="Link do ikony"
+          variant="outlined"
+          margin="normal"
+          name="icon"
+          onChange={this.handleChange}
+        />
         <Button
           type="submit"
           autoFocus
@@ -139,8 +157,8 @@ const mapStateToProps = ({ item, editMode }) => ({ item, editMode });
 
 const mapDispatchToProps = (dispatch) => ({
   addItem: (itemContent) => dispatch(addItemAction(itemContent)),
-  editItem: (itemContent) => dispatch(editItemAction(itemContent)),
   toggleModal: (modalOpen) => dispatch(toggleModalAction(modalOpen)),
+  updateItem: (id, itemContent) => dispatch(updateItemAction(id, itemContent)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
