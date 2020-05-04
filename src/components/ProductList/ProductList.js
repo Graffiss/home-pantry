@@ -21,9 +21,9 @@ const ProductList = ({ items }) => {
         'W spiżarni jest pusto :('
       ) : (
         <div className={classes.root}>
-          <Grid item xs={12} md={6}>
-            <List dense={false}>
-              {items.map(({ id, name, amount, minAmount, category, icon }) => (
+          <Grid container spacing={3}>
+            {items.map(({ id, name, amount, minAmount, category, icon }) => (
+              <Grid item xs={12} sm={4}>
                 <ProductItem
                   key={id}
                   id={id}
@@ -33,8 +33,8 @@ const ProductList = ({ items }) => {
                   category={category}
                   icon={icon}
                 />
-              ))}
-            </List>
+              </Grid>
+            ))}
           </Grid>
         </div>
       )}

@@ -88,6 +88,7 @@ class Form extends Component {
           margin="normal"
           name="name"
           onChange={this.handleChange}
+          size="small"
         />
         <TextField
           id="outlined-number"
@@ -101,6 +102,7 @@ class Form extends Component {
           variant="outlined"
           margin="normal"
           onChange={this.handleChange}
+          size="small"
         />
         <TextField
           id="outlined-number"
@@ -114,6 +116,7 @@ class Form extends Component {
           variant="outlined"
           margin="normal"
           onChange={this.handleChange}
+          size="small"
         />
         <FormControl variant="outlined" margin="normal">
           <InputLabel id="demo-simple-select-outlined-label">Kategoria</InputLabel>
@@ -124,6 +127,7 @@ class Form extends Component {
             name="category"
             value={category}
             onChange={this.handleChange}
+            size="small"
           >
             <MenuItem value="Napoje">Napoje</MenuItem>
             <MenuItem value="Warzywa">Warzywa</MenuItem>
@@ -139,6 +143,7 @@ class Form extends Component {
           margin="normal"
           name="icon"
           onChange={this.handleChange}
+          size="small"
         />
         <Button
           type="submit"

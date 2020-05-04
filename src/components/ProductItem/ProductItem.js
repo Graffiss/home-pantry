@@ -1,4 +1,9 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -15,22 +20,61 @@ import {
   toggleModal as toggleModalAction,
 } from '../../actions';
 
-const StyledListItem = styled(ListItem)`
-  min-width: 40vw;
-`;
-
-const StyledSvgIcon = styled.img`
-  max-width: 48px;
-  max-height: 48px;
-`;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    margin: 'auto',
+    maxWidth: 300,
+    textAlign: 'center',
+  },
+  image: {
+    width: 100,
+    height: 100,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+  },
+}));
 
 const ProductItem = ({ id, name, category, amount, icon, removeItem, editItem, toggleModal }) => {
+  const classes = useStyles();
+
   const handleEdit = () => {
     editItem(id);
     toggleModal();
   };
 
   return (
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Chip label={category} size="small" />
+        <Typography gutterBottom variant="subtitle1">
+          {name}
+        </Typography>
+        <ButtonBase className={classes.image}>
+          <ListItemAvatar>
+            <img className={classes.image} src={icon} alt={name} />
+          </ListItemAvatar>
+        </ButtonBase>
+
+        <Typography variant="subtitle1">Pozostało: {amount}</Typography>
+        <IconButton edge="end" aria-label="edit">
+          <EditIcon style={{ color: green[500] }} onClick={() => handleEdit()} />
+        </IconButton>
+        <IconButton edge="end" aria-label="delete" onClick={() => removeItem(id)}>
+          <DeleteIcon color="secondary" />
+        </IconButton>
+      </Paper>
+    </div>
+  );
+
+  /*  return (
     <>
       <StyledListItem>
         <ListItemAvatar>
@@ -47,7 +91,7 @@ const ProductItem = ({ id, name, category, amount, icon, removeItem, editItem, t
         </IconButton>
       </StyledListItem>
     </>
-  );
+  ); */
 };
 
 const mapDispatchToProps = (dispatch) => ({
