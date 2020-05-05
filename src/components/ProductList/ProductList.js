@@ -8,6 +8,7 @@ import ProductItem from '../ProductItem/ProductItem';
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
+    minWidth: 752,
     maxWidth: 752,
   },
 }));
@@ -18,12 +19,12 @@ const ProductList = ({ items }) => {
   return (
     <>
       {items.length === 0 ? (
-        'W spiżarni jest pusto :('
+        'Brak produktów'
       ) : (
         <div className={classes.root}>
           <Grid container spacing={3}>
             {items.map(({ id, name, amount, minAmount, category, icon }) => (
-              <Grid item xs={12} sm={4}>
+              <Grid container item xs={12} sm={4}>
                 <ProductItem
                   key={id}
                   id={id}
@@ -42,6 +43,4 @@ const ProductList = ({ items }) => {
   );
 };
 
-const mapStateToProps = ({ items }) => ({ items });
-
-export default connect(mapStateToProps)(ProductList);
+export default ProductList;

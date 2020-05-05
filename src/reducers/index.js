@@ -27,7 +27,7 @@ const initialState = {
     {
       id: 'a354501c-dd2a-4070-a7c1-ac8b27632e9d',
       name: 'Coca-Cola',
-      amount: 2,
+      amount: 1,
       minAmount: 1,
       category: 'Napoje',
       icon: cokeIcon,

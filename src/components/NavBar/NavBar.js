@@ -1,4 +1,6 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, Button, Badge } from '@material-ui/core';
 
@@ -12,19 +14,26 @@ const useStyles = makeStyles((theme) => ({
   title: { flex: 1 },
 }));
 
-const NavBar = () => {
+const NavBar = ({ items }) => {
   const classes = useStyles();
+
+  const shoppingItems = items.filter((item) => item.amount <= item.minAmount && item);
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            SPIŻARNIA
+            <NavLink to="/" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+              SPIŻARNIA
+            </NavLink>
           </Typography>
-          <Badge badgeContent={2} color="error">
-            <Button color="secondary" variant="contained">
-              Lista zakupów
-            </Button>
+          <Badge badgeContent={shoppingItems.length} color="error">
+            <NavLink to="/lista-zakupow" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+              <Button color="secondary" variant="contained">
+                Lista zakupów
+              </Button>
+            </NavLink>
           </Badge>
         </Toolbar>
       </AppBar>
@@ -32,4 +41,6 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+const mapStateToProps = ({ items }) => ({ items });
+
+export default connect(mapStateToProps)(NavBar);

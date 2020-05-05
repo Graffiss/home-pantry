@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import ProductList from '../components/ProductList/ProductList';
 
@@ -8,11 +9,13 @@ const StyledWrapper = styled.div`
   align-items: center;
 `;
 
-const ProductView = () => (
+const ProductView = ({ items }) => (
   <StyledWrapper>
     <h2>Lista produktów dostępnych w spiżarni</h2>
-    <ProductList />
+    <ProductList items={items} />
   </StyledWrapper>
 );
 
-export default ProductView;
+const mapStateToProps = ({ items }) => ({ items });
+
+export default connect(mapStateToProps)(ProductView);
