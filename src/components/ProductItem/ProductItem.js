@@ -1,6 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -78,8 +78,8 @@ const ProductItem = ({
         <Typography variant="subtitle1" className={amount <= minAmount && classes.outOfProduct}>
           Pozostało: {amount}
         </Typography>
-        <IconButton edge="end" aria-label="edit">
-          <EditIcon style={{ color: green[500] }} onClick={() => handleEdit()} />
+        <IconButton edge="end" aria-label="edit" onClick={() => handleEdit()}>
+          <EditIcon style={{ color: green[500] }} />
         </IconButton>
         <IconButton edge="end" aria-label="delete" onClick={() => removeItem(id)}>
           <DeleteIcon color="secondary" />
@@ -94,5 +94,17 @@ const mapDispatchToProps = (dispatch) => ({
   editItem: (id) => dispatch(editItemAction(id)),
   toggleModal: (modalOpen) => dispatch(toggleModalAction(modalOpen)),
 });
+
+ProductItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
+  minAmount: PropTypes.number.isRequired,
+  category: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  editItem: PropTypes.func.isRequired,
+  removeItem: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(ProductItem);

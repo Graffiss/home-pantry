@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -42,5 +43,18 @@ const NavBar = ({ items }) => {
 };
 
 const mapStateToProps = ({ items }) => ({ items });
+
+NavBar.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      amount: PropTypes.number.isRequired,
+      minAmount: PropTypes.number.isRequired,
+      category: PropTypes.string.isRequired,
+      icon: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+};
 
 export default connect(mapStateToProps)(NavBar);

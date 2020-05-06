@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -87,5 +88,12 @@ const mapDispatchToProps = (dispatch) => ({
   toggleModal: (modalOpen) => dispatch(toggleModalAction(modalOpen)),
   stopEdit: () => dispatch(stopEditAction()),
 });
+
+AddItemModal.propTypes = {
+  toggleModal: PropTypes.func.isRequired,
+  stopEdit: PropTypes.func.isRequired,
+  editMode: PropTypes.bool.isRequired,
+  modalOpen: PropTypes.bool.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddItemModal);

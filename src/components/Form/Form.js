@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -11,7 +12,6 @@ import {
   addItem as addItemAction,
   updateItem as updateItemAction,
   toggleModal as toggleModalAction,
-  editItem,
 } from '../../actions';
 
 const StyledForm = styled.form`
@@ -34,15 +34,19 @@ class Form extends Component {
   };
 
   componentDidMount = () => {
-    if (this.props.editMode) {
+    const {
+      editMode,
+      item: { id, name, amount, minAmount, category, icon },
+    } = this.props;
+    if (editMode) {
       this.setState({
         item: {
-          id: this.props.item.id,
-          name: this.props.item.name,
-          amount: this.props.item.amount,
-          minAmount: this.props.item.minAmount,
-          category: this.props.item.category,
-          icon: this.props.item.icon,
+          id,
+          name,
+          amount,
+          minAmount,
+          category,
+          icon,
         },
       });
     }
@@ -64,7 +68,10 @@ class Form extends Component {
     const { item } = this.state;
 
     if (editMode) {
-      updateItem(this.props.item.id, item);
+      const {
+        item: { id },
+      } = this.props;
+      updateItem(id, item);
     } else {
       addItem(item);
     }
@@ -165,5 +172,20 @@ const mapDispatchToProps = (dispatch) => ({
   toggleModal: (modalOpen) => dispatch(toggleModalAction(modalOpen)),
   updateItem: (id, itemContent) => dispatch(updateItemAction(id, itemContent)),
 });
+
+Form.propTypes = {
+  toggleModal: PropTypes.func.isRequired,
+  addItem: PropTypes.func.isRequired,
+  updateItem: PropTypes.func.isRequired,
+  editMode: PropTypes.bool.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    amount: PropTypes.number.isRequired,
+    minAmount: PropTypes.number.isRequired,
+    category: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

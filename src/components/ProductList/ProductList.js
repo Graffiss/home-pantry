@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
 import Grid from '@material-ui/core/Grid';
 import ProductItem from '../ProductItem/ProductItem';
 
@@ -24,7 +23,7 @@ const ProductList = ({ items }) => {
         <div className={classes.root}>
           <Grid container spacing={3}>
             {items.map(({ id, name, amount, minAmount, category, icon }) => (
-              <Grid container item xs={12} sm={4}>
+              <Grid key={id} container item xs={12} sm={4}>
                 <ProductItem
                   key={id}
                   id={id}
@@ -41,6 +40,19 @@ const ProductList = ({ items }) => {
       )}
     </>
   );
+};
+
+ProductList.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      amount: PropTypes.number.isRequired,
+      minAmount: PropTypes.number.isRequired,
+      category: PropTypes.string.isRequired,
+      icon: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 };
 
 export default ProductList;
