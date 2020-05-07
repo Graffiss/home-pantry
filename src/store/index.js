@@ -17,6 +17,7 @@ const store = createStore(
 store.subscribe(() => {
   saveState({
     items: store.getState().items,
+    item: store.getState().item,
   });
 });
 

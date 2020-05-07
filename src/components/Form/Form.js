@@ -43,6 +43,7 @@ class Form extends Component {
       editMode,
       item: { id, name, amount, minAmount, unit, category, icon },
     } = this.props;
+
     if (editMode) {
       this.setState({
         item: {
@@ -217,7 +218,7 @@ Form.propTypes = {
   updateItem: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,
   item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     name: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
     minAmount: PropTypes.number.isRequired,
