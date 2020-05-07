@@ -22,7 +22,7 @@ const ProductList = ({ items }) => {
       ) : (
         <div className={classes.root}>
           <Grid container spacing={3}>
-            {items.map(({ id, name, amount, minAmount, category, icon }) => (
+            {items.map(({ id, name, amount, minAmount, unit, category, icon }) => (
               <Grid key={id} container item xs={12} sm={4}>
                 <ProductItem
                   key={id}
@@ -30,6 +30,7 @@ const ProductList = ({ items }) => {
                   name={name}
                   amount={amount}
                   minAmount={minAmount}
+                  unit={unit}
                   category={category}
                   icon={icon}
                 />
@@ -49,6 +50,7 @@ ProductList.propTypes = {
       name: PropTypes.string.isRequired,
       amount: PropTypes.number.isRequired,
       minAmount: PropTypes.number.isRequired,
+      unit: PropTypes.string.isRequired,
       category: PropTypes.string.isRequired,
       icon: PropTypes.string.isRequired,
     }),

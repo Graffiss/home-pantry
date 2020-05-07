@@ -19,15 +19,20 @@ const StyledForm = styled.form`
   flex-direction: column;
   justify-content: center;
   width: 300px;
+
+  @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+    width: 250px;
+  }
 `;
 
 class Form extends Component {
   state = {
     item: {
-      id: 0,
+      id: '',
       name: '',
-      amount: 0,
+      amount: 1,
       minAmount: 0,
+      unit: '',
       category: '',
       icon: '',
     },
@@ -36,7 +41,7 @@ class Form extends Component {
   componentDidMount = () => {
     const {
       editMode,
-      item: { id, name, amount, minAmount, category, icon },
+      item: { id, name, amount, minAmount, unit, category, icon },
     } = this.props;
     if (editMode) {
       this.setState({
@@ -45,6 +50,7 @@ class Form extends Component {
           name,
           amount,
           minAmount,
+          unit,
           category,
           icon,
         },
@@ -80,10 +86,22 @@ class Form extends Component {
 
   render() {
     const {
-      item: { name, amount, minAmount, category, icon },
+      item: { name, amount, minAmount, unit, category, icon },
     } = this.state;
 
     const { editMode } = this.props;
+
+    const amountProps = {
+      step: 1,
+      min: 1,
+      max: 1000,
+    };
+
+    const minAmountProps = {
+      step: 1,
+      min: 0,
+      max: 1000,
+    };
 
     return (
       <StyledForm onSubmit={this.handleSubmit}>
@@ -96,6 +114,7 @@ class Form extends Component {
           name="name"
           onChange={this.handleChange}
           size="small"
+          required
         />
         <TextField
           id="outlined-number"
@@ -110,6 +129,7 @@ class Form extends Component {
           margin="normal"
           onChange={this.handleChange}
           size="small"
+          inputProps={amountProps}
         />
         <TextField
           id="outlined-number"
@@ -124,7 +144,25 @@ class Form extends Component {
           margin="normal"
           onChange={this.handleChange}
           size="small"
+          inputProps={minAmountProps}
         />
+        <FormControl variant="outlined" margin="normal">
+          <InputLabel id="demo-simple-select-outlined-label">Jednostka</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            label="Jednostka"
+            name="unit"
+            value={unit}
+            onChange={this.handleChange}
+            size="small"
+          >
+            <MenuItem value="szt">szt</MenuItem>
+            <MenuItem value="l">l</MenuItem>
+            <MenuItem value="ml">ml</MenuItem>
+            <MenuItem value="kg">kg</MenuItem>
+          </Select>
+        </FormControl>
         <FormControl variant="outlined" margin="normal">
           <InputLabel id="demo-simple-select-outlined-label">Kategoria</InputLabel>
           <Select
@@ -183,6 +221,7 @@ Form.propTypes = {
     name: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
     minAmount: PropTypes.number.isRequired,
+    unit: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
   }).isRequired,

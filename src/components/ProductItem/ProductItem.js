@@ -50,6 +50,7 @@ const ProductItem = ({
   category,
   amount,
   minAmount,
+  unit,
   icon,
   removeItem,
   editItem,
@@ -76,7 +77,7 @@ const ProductItem = ({
         </ButtonBase>
 
         <Typography variant="subtitle1" className={amount <= minAmount && classes.outOfProduct}>
-          Pozostało: {amount}
+          Pozostało: {amount} {unit}
         </Typography>
         <IconButton edge="end" aria-label="edit" onClick={() => handleEdit()}>
           <EditIcon style={{ color: green[500] }} />
@@ -100,6 +101,7 @@ ProductItem.propTypes = {
   name: PropTypes.string.isRequired,
   amount: PropTypes.number.isRequired,
   minAmount: PropTypes.number.isRequired,
+  unit: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   toggleModal: PropTypes.func.isRequired,
