@@ -91,9 +91,15 @@ const mapDispatchToProps = (dispatch) => ({
 
 AddItemModal.propTypes = {
   toggleModal: PropTypes.func.isRequired,
-  stopEdit: PropTypes.func.isRequired,
-  editMode: PropTypes.bool.isRequired,
-  modalOpen: PropTypes.bool.isRequired,
+  stopEdit: PropTypes.func,
+  editMode: PropTypes.bool,
+  modalOpen: PropTypes.bool,
+};
+
+AddItemModal.defaultProps = {
+  stopEdit: true,
+  editMode: false,
+  modalOpen: false,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddItemModal);

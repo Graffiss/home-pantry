@@ -7,8 +7,7 @@ import ProductItem from '../ProductItem/ProductItem';
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
-    minWidth: 752,
-    maxWidth: 752,
+    width: 752,
   },
 }));
 
@@ -23,7 +22,7 @@ const ProductList = ({ items }) => {
         <div className={classes.root}>
           <Grid container spacing={3}>
             {items.map(({ id, name, amount, minAmount, unit, category, icon }) => (
-              <Grid key={id} container item xs={12} sm={4}>
+              <Grid key={id} container item xs={12} sm={3} md={4}>
                 <ProductItem
                   key={id}
                   id={id}

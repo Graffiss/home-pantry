@@ -8,6 +8,10 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  h2 {
+    padding: 0px 20px;
+    text-align: center;
+  }
 `;
 
 const ProductView = ({ items }) => (

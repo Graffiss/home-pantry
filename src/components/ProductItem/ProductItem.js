@@ -82,7 +82,10 @@ const ProductItem = ({
           </ListItemAvatar>
         </ButtonBase>
 
-        <Typography variant="subtitle1" className={amount <= minAmount && classes.outOfProduct}>
+        <Typography
+          variant="subtitle1"
+          className={`${amount <= minAmount && classes.outOfProduct}`}
+        >
           Pozostało: {amount} {unit}
         </Typography>
         <IconButton edge="end" aria-label="edit" onClick={() => handleEdit()}>
